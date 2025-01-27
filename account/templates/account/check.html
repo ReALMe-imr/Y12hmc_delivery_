@@ -1,0 +1,157 @@
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        :root {
+            --dark-bg: #1a1a1a;
+            --card-bg: #242424;
+            --accent-green: #00ff9d;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sidebar {
+            background-color: #ffffff;
+            min-height: 100vh;
+            width: 250px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding: 20px;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .dashboard-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: conic-gradient(var(--accent-green) var(--percentage), #333 0);
+            position: relative;
+        }
+
+        .nav-link {
+            color: #333;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3 class="mb-4 fw-bold">Dashboard</h3>
+        <nav>
+            <a href="{% url 'core:record_list' %}" class="nav-link d-flex align-items-center">
+                <i class="bi bi-house-door me-2"></i> Home
+            </a>
+            <!-- Add more navigation items -->
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="d-flex align-items-center">
+                <div class="rounded-circle bg-success p-2 me-3">
+                    <i class="bi bi-person-circle fs-4"></i>
+                </div>
+                <div>
+                    <h4 class="mb-0">Welcome, {{ user.username }}</h4>
+                    <small class="text-muted">{{ user.email }}</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="row g-4 mb-4">
+            <!-- Daily Records Card -->
+            <div class="col-md-4">
+                <div class="dashboard-card">
+                    <h6 class="text-success mb-3">TODAY'S RECORDS</h6>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="mb-0">{{ daily_count }}</h3>
+                        <div class="stat-circle" style="--percentage: {{ daily_count }}%">
+                            <span class="position-absolute top-50 start-50 translate-middle">
+                                {{ daily_count }}%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat for weekly and monthly counts -->
+        </div>
+
+        <!-- User Info Card -->
+        <div class="dashboard-card">
+            <h5 class="mb-4">User Information</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <p><i class="bi bi-person me-2"></i>{{ user.get_full_name }}</p>
+                    <p><i class="bi bi-envelope me-2"></i>{{ user.email }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><i class="bi bi-calendar me-2"></i>Joined: {{ user.date_joined|date:"F j, Y" }}</p>
+                    <p><i class="bi bi-clock me-2"></i>Last Login: {{ user.last_login|date:"F j, Y, g:i A" }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Productivity Summary -->
+        <div class="dashboard-card">
+            <h5 class="mb-4">Productivity Summary</h5>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="text-center">
+                        <h2 class="text-success">{{ total_count }}</h2>
+                        <p class="text-muted">Total Records</p>
+                    </div>
+                </div>
+                <!-- Add more summary stats -->
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

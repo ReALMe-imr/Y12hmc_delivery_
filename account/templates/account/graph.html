@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f4f5f9;
+            font-family: 'Arial', sans-serif;
+        }
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+        .dashboard-header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+        .dashboard-header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        .stats-card, .user-info-card {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        .stats-card h5, .user-info-card h5 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        .chart-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .chart-container {
+            flex: 1;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+        .chart-container h5 {
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+        canvas {
+            background: #f9f9f9;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Stylish Return Home Button -->
+        <div class="text-left mb-3">
+            <a href="{% url 'core:record_list' %}" class="btn btn-outline-primary">
+                <i class="fas fa-home"></i> Return Home
+            </a>
+        </div>
+
+        <!-- Header -->
+        <div class="dashboard-header">
+            <h1>Welcome, {{ user.username }}</h1>
+            <p>Your productivity at a glance</p>
+        </div>
+
+        <!-- User Info Card -->
+        <div class="user-info-card">
+            <h5>User Information</h5>
+            <p><strong>Full Name:</strong> {{ user.get_full_name }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Date Joined:</strong> {{ user.date_joined|date:"F j, Y" }}</p>
+            <p><strong>Last Login:</strong> {{ user.last_login|date:"F j, Y, g:i A" }}</p>
+        </div>
+
+        <!-- Stylish Stats Card -->
+        <div class="stats-card">
+            <h5>Productivity Summary</h5>
+            <p><strong>Records created today:</strong> {{ daily_count }}</p>
+            <p><strong>Records created this week:</strong> {{ weekly_count }}</p>
+            <p><strong>Records created this month:</strong> {{ monthly_count }}</p>
+            <p><strong>Total records created:</strong> {{ total_count }}</p>
+        </div>
+
+        Productivity Graphs
+        <div class="chart-row">
+            <!-- Chart 1: Productivity by Hour -->
+            <div class="chart-container">
+                <h5>Productivity by Hour (Today)</h5>
+                <canvas id="chartByHour"></canvas>
+            </div>
+            <!-- Chart 2: Productivity by Day (Last 7 Days) -->
+            <div class="chart-container">
+                <h5>Productivity by Day (Last 7 Days)</h5>
+                <canvas id="chartByWeek"></canvas>
+            </div>
+        </div>
+        <div class="chart-row">
+            <!-- Chart 3: Productivity by Day (Last 30 Days) -->
+            <div class="chart-container">
+                <h5>Productivity by Day (Last 30 Days)</h5>
+                <canvas id="chartByMonth"></canvas>
+            </div>
+            <!-- Chart 4: Total Productivity -->
+            <div class="chart-container">
+                <h5>Total Productivity Over Time</h5>
+                <canvas id="chartTotal"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mock Data (replace with actual backend data)
+        const dailyProductivity = [0, 1, 3, 5, 8, 10, 12, 14, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95];
+        const weeklyProductivity = [100, 200, 300, 250, 320, 400, 450];
+        const monthlyProductivity = Array.from({length: 30}, () => Math.floor(Math.random() * 500));
+        const totalProductivity = [3000, 5000, 15000]; // Example data for pie chart
+
+        // Chart 1: Productivity by Hour
+        new Chart(document.getElementById('chartByHour').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: Array.from({length: 24}, (_, i) => `${i}:00`),
+                datasets: [{
+                    label: 'Records Created',
+                    data: dailyProductivity,
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: '#36A2EB',
+                    borderWidth: 1,
+                }]
+            },
+            options: { responsive: true }
+        });
+
+        // Chart 2: Productivity by Day (Last 7 Days)
+        new Chart(document.getElementById('chartByWeek').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                datasets: [{
+                    label: 'Records Created',
+                    data: weeklyProductivity,
+                    borderColor: '#4BC0C0',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    tension: 0.3
+                }]
+            },
+            options: { responsive: true }
+        });
+
+        // Chart 3: Productivity by Day (Last 30 Days)
+        new Chart(document.getElementById('chartByMonth').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: Array.from({length: 30}, (_, i) => `Day ${i + 1}`),
+                datasets: [{
+                    label: 'Records Created',
+                    data: monthlyProductivity,
+                    backgroundColor: 'rgba(255, 159, 64, 0.6)',
+                    borderColor: '#FF9F40',
+                }]
+            },
+            options: { responsive: true }
+        });
+
+        // Chart 4: Total Productivity
+        new Chart(document.getElementById('chartTotal').getContext('2d'), {
+            type: 'pie',
+            data: {
+                labels: ['This Month', 'Last Month', 'All Time'],
+                datasets: [{
+                    label: 'Total Records',
+                    data: totalProductivity,
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+                }]
+            },
+            options: { responsive: true }
+        });
+    </script>
+</body>
+</html>

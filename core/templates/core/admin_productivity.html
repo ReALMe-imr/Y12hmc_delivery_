@@ -1,0 +1,744 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Admin Productivity Dashboard{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
+<style>
+    .stats-card {
+        transition: all 0.3s ease;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .stats-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    .productivity-filters {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+    .chart-container {
+        position: relative;
+        height: 400px;
+        width: 100%;
+        margin: 20px 0;
+    }
+    .progress {
+        height: 10px;
+        border-radius: 5px;
+    }
+    .progress-bar {
+        transition: width 0.6s ease;
+    }
+    .table th {
+        font-weight: 600;
+        color: #495057;
+    }
+    .table td {
+        vertical-align: middle;
+    }
+    .efficiency-badge {
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+    .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+    .card-header {
+        background-color: white;
+        border-bottom: 1px solid rgba(0,0,0,.125);
+        padding: 1rem 1.25rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4 py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="fas fa-chart-line"></i> Productivity Dashboard</h2>
+        <div class="btn-group">
+            <button class="btn btn-outline-primary" id="exportExcel">
+                <i class="fas fa-file-excel"></i> Export to Excel
+            </button>
+        </div>
+    </div>
+
+    <!-- Filters Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <form method="get" class="row g-3" id="filterForm">
+                        <div class="col-md-3">
+                            <label class="form-label">Date Range</label>
+                            <select class="form-select" name="date_range" id="dateRange">
+                                <option value="today" {% if date_range == 'today' %}selected{% endif %}>Today</option>
+                                <option value="yesterday" {% if date_range == 'yesterday' %}selected{% endif %}>Yesterday</option>
+                                <option value="this_week" {% if date_range == 'this_week' %}selected{% endif %}>This Week</option>
+                                <option value="last_week" {% if date_range == 'last_week' %}selected{% endif %}>Last Week</option>
+                                <option value="this_month" {% if date_range == 'this_month' %}selected{% endif %}>This Month</option>
+                                <option value="last_month" {% if date_range == 'last_month' %}selected{% endif %}>Last Month</option>
+                                <option value="custom" {% if date_range == 'custom' %}selected{% endif %}>Custom Range</option>
+                            </select>
+                        </div>
+
+                        <!-- Custom Date Range Fields -->
+                        <div class="col-md-4" id="customDateFields" style="display: none;">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="form-label">Start Date</label>
+                                    <input type="date" class="form-control" name="custom_start_date" id="customStartDate" 
+                                           value="{{ custom_start_date|date:'Y-m-d' }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">End Date</label>
+                                    <input type="date" class="form-control" name="custom_end_date" id="customEndDate" 
+                                           value="{{ custom_end_date|date:'Y-m-d' }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label">Group By</label>
+                            <select class="form-select" name="group_by">
+                                <option value="daily" {% if group_by == 'daily' %}selected{% endif %}>Daily</option>
+                                <option value="weekly" {% if group_by == 'weekly' %}selected{% endif %}>Weekly</option>
+                                <option value="monthly" {% if group_by == 'monthly' %}selected{% endif %}>Monthly</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-2 align-self-end">
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-filter me-2"></i>Apply Filters
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Move this section just above Detailed Productivity Report -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Data Recording Trends</h5>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-primary" data-range="day">Last 24 Hours</button>
+                        <button type="button" class="btn btn-outline-primary" data-range="week">Last 7 Days</button>
+                        <button type="button" class="btn btn-outline-primary" data-range="month">Last 30 Days</button>
+                        <button type="button" class="btn btn-outline-primary" data-range="total">All Time</button>
+                        <button type="button" class="btn btn-outline-primary" data-range="custom">Custom</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Custom Date Range Inputs -->
+                    <div id="customDateContainer" class="row mb-4" style="display: none;">
+                        <div class="col-md-5">
+                            <div class="input-group">
+                                <span class="input-group-text">Start Date</span>
+                                <input type="date" class="form-control" id="trendStartDate">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="input-group">
+                                <span class="input-group-text">End Date</span>
+                                <input type="date" class="form-control" id="trendEndDate">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary w-100" id="applyCustomRange">Apply</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Graph Container -->
+                    <div class="chart-container" style="position: relative; height:400px;">
+                        <canvas id="recordingTrendsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="row mb-4">
+        <!-- Total Records Card -->
+        <div class="col-xl-3 col-md-6">
+            <div class="card stats-card h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h6 class="text-muted mb-1">Total Records</h6>
+                            <h2 class="mb-0 fw-bold">{{ total_records }}</h2>
+                        </div>
+                        <div class="rounded-circle bg-primary bg-opacity-10 p-3">
+                            <i class="fas fa-database text-primary fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="text-muted">Previous Period</span>
+                            <span class="fw-bold">{{ previous_total_records }}</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            {% if records_growth >= 0 %}
+                            <i class="fas fa-arrow-up text-success me-1"></i>
+                            <span class="text-success">+{{ records_growth }}%</span>
+                            {% else %}
+                            <i class="fas fa-arrow-down text-danger me-1"></i>
+                            <span class="text-danger">{{ records_growth }}%</span>
+                            {% endif %}
+                            <span class="text-muted ms-2">from last period</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Active Users Card -->
+        <div class="col-xl-3 col-md-6">
+            <div class="card stats-card h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h6 class="text-muted mb-1">Active Users</h6>
+                            <h2 class="mb-0 fw-bold">{{ active_users }}</h2>
+                        </div>
+                        <div class="rounded-circle bg-success bg-opacity-10 p-3">
+                            <i class="fas fa-users text-success fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="progress mb-2" style="height: 6px;">
+                            {% widthratio active_users total_users 100 as active_percentage %}
+                            <div class="progress-bar bg-success" role="progressbar" style="width: {{ active_percentage }}%"></div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="text-muted">Active Rate</span>
+                            <span class="fw-bold">{{ active_percentage }}% of total users</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Average Daily Records Card -->
+        <div class="col-xl-3 col-md-6">
+            <div class="card stats-card h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h6 class="text-muted mb-1">Average Daily Records</h6>
+                            <h2 class="mb-0 fw-bold">{{ avg_daily_records }}</h2>
+                        </div>
+                        <div class="rounded-circle bg-warning bg-opacity-10 p-3">
+                            <i class="fas fa-chart-line text-warning fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="text-muted">Highest Day</span>
+                            <span class="fw-bold">{{ highest_daily_records }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="text-muted">Lowest Day</span>
+                            <span class="fw-bold">{{ lowest_daily_records }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Records This Month Card -->
+        <div class="col-xl-3 col-md-6">
+            <div class="card stats-card h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h6 class="text-muted mb-1">Records This Month</h6>
+                            <h2 class="mb-0 fw-bold">{{ records_this_month }}</h2>
+                        </div>
+                        <div class="rounded-circle bg-info bg-opacity-10 p-3">
+                            <i class="fas fa-calendar-check text-info fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="text-muted">Daily Target</span>
+                            <span class="fw-bold">{{ monthly_target_per_day }}</span>
+                        </div>
+                        <div class="progress mb-2" style="height: 6px;">
+                            {% widthratio records_this_month monthly_target 100 as completion_percentage %}
+                            <div class="progress-bar bg-info" role="progressbar" style="width: {{ completion_percentage }}%"></div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="text-muted">Monthly Progress</span>
+                            <span class="fw-bold">{{ completion_percentage }}%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detailed Table -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Detailed Productivity Report</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover" id="productivityTable">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Daily Records</th>
+                            <th>Weekly Records</th>
+                            <th>Monthly Records</th>
+                            <th>Total Records</th>
+                            <th>Last Active</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in user_data %}
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-user-circle fa-2x me-2"></i>
+                                    <div>
+                                        <div class="fw-bold">{{ data.user.get_full_name|default:data.user.username }}</div>
+                                        <small class="text-muted">{{ data.user.email }}</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{ data.daily_count }}</td>
+                            <td>{{ data.weekly_count }}</td>
+                            <td>{{ data.monthly_count }}</td>
+                            <td>{{ data.total_count }}</td>
+                            <td>{{ data.last_active|default:"Never" }}</td>
+                            <td>
+                                <a href="{% url 'core:user_productivity_details' data.user.id %}?start_date={{ start_date|date:'Y-m-d' }}&end_date={{ end_date|date:'Y-m-d' }}" 
+                                   class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-chart-bar"></i> View Details
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analytics Section -->
+    <div class="row mt-4">
+        <!-- Time Period Filter -->
+        <div class="col-12 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Analytics Settings</h5>
+                </div>
+                <div class="card-body">
+                    <form method="get" class="row g-3" id="analyticsForm">
+                        <div class="col-md-4">
+                            <label class="form-label">Time Period</label>
+                            <select class="form-select" name="time_period" id="analyticsPeriod">
+                                <option value="total" {% if time_period == 'total' %}selected{% endif %}>Total</option>
+                                <option value="daily" {% if time_period == 'daily' %}selected{% endif %}>Daily</option>
+                                <option value="weekly" {% if time_period == 'weekly' %}selected{% endif %}>Weekly</option>
+                                <option value="monthly" {% if time_period == 'monthly' %}selected{% endif %}>Monthly</option>
+                                <option value="custom" {% if time_period == 'custom' %}selected{% endif %}>Custom Range</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6" id="analyticsCustomRange" style="display: none;">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="form-label">Start Date</label>
+                                    <input type="date" class="form-control" name="analytics_start_date" id="analyticsStartDate" 
+                                           value="{{ analytics_start_date|date:'Y-m-d' }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">End Date</label>
+                                    <input type="date" class="form-control" name="analytics_end_date" id="analyticsEndDate" 
+                                           value="{{ analytics_end_date|date:'Y-m-d' }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 align-self-end">
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-sync-alt me-2"></i>Update Analytics
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Users -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="mb-0">Top Users</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Records</th>
+                                    <th>Performance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in top_users %}
+                                <tr>
+                                    <td>{{ user.created_by__first_name }} {{ user.created_by__last_name }}</td>
+                                    <td>{{ user.record_count }}</td>
+                                    <td>
+                                        <div class="progress">
+                                            {% with top_count=top_users.0.record_count %}
+                                            {% widthratio user.record_count top_count 100 as percentage %}
+                                            <div class="progress-bar" role="progressbar" 
+                                                 style="width: {{ percentage }}%"
+                                                 aria-valuenow="{{ percentage }}" 
+                                                 aria-valuemin="0" 
+                                                 aria-valuemax="100">
+                                                {{ percentage }}%
+                                            </div>
+                                            {% endwith %}
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Average Time to Enter Records -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Average Time Between Records</h5>
+                    <span class="badge bg-info">Updated in real-time</span>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Average Time</th>
+                                    <th>Efficiency</th>
+                                    <th>Records</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in user_avg_times %}
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-user-circle fa-lg me-2"></i>
+                                            <div>{{ user.full_name }}</div>
+                                        </div>
+                                    </td>
+                                    <td>{{ user.avg_minutes|floatformat:1 }} min</td>
+                                    <td>
+                                        {% if user.avg_minutes > 0 %}
+                                            {% if user.avg_minutes <= 5 %}
+                                                <span class="badge bg-success efficiency-badge">Excellent</span>
+                                            {% elif user.avg_minutes <= 10 %}
+                                                <span class="badge bg-info efficiency-badge">Good</span>
+                                            {% elif user.avg_minutes <= 15 %}
+                                                <span class="badge bg-warning efficiency-badge">Average</span>
+                                            {% else %}
+                                                <span class="badge bg-danger efficiency-badge">Needs Improvement</span>
+                                            {% endif %}
+                                        {% else %}
+                                            <span class="badge bg-secondary efficiency-badge">No Data</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ user.record_count }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Peak Activity -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Peak Activity Period</h5>
+                    <span class="badge bg-primary">Most Active Day</span>
+                </div>
+                <div class="card-body">
+                    {% if peak_period %}
+                        <div class="text-center mb-4">
+                            <h3 class="text-primary mb-3">{{ peak_period.period|date:"F j, Y" }}</h3>
+                            <div class="d-inline-block px-4 py-2 bg-light rounded-pill">
+                                <strong class="text-dark">{{ peak_period.count }}</strong>
+                                <span class="text-muted ms-1">total records</span>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <h6 class="text-muted mb-3"><i class="fas fa-trophy me-2"></i>Top Contributors</h6>
+                            <div class="list-group">
+                                {% for user in peak_users|slice:":3" %}
+                                    <div class="list-group-item border-0 d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <div class="position-relative">
+                                                <i class="fas fa-user-circle fa-2x text-primary"></i>
+                                                {% if forloop.counter == 1 %}
+                                                    <i class="fas fa-crown position-absolute top-0 start-100 translate-middle text-warning"></i>
+                                                {% endif %}
+                                            </div>
+                                            <span class="ms-3">{{ user.created_by__first_name }} {{ user.created_by__last_name }}</span>
+                                        </div>
+                                        <span class="badge bg-primary rounded-pill">{{ user.count }} records</span>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="fas fa-chart-area fa-3x text-muted mb-3"></i>
+                            <p class="text-muted">No activity data available</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Function to toggle custom date fields
+    function toggleCustomDateFields() {
+        const dateRange = document.getElementById('dateRange').value;
+        const customDateFields = document.getElementById('customDateFields');
+        
+        if (dateRange === 'custom') {
+            customDateFields.style.display = 'block';
+            // Set default dates if they're empty
+            const startDate = document.getElementById('customStartDate');
+            const endDate = document.getElementById('customEndDate');
+            
+            if (!startDate.value) {
+                const thirtyDaysAgo = new Date();
+                thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+                startDate.value = thirtyDaysAgo.toISOString().split('T')[0];
+            }
+            
+            if (!endDate.value) {
+                const today = new Date();
+                endDate.value = today.toISOString().split('T')[0];
+            }
+        } else {
+            customDateFields.style.display = 'none';
+        }
+    }
+
+    // Initialize custom date fields visibility
+    toggleCustomDateFields();
+
+    // Add event listener for date range changes
+    document.getElementById('dateRange').addEventListener('change', toggleCustomDateFields);
+
+    // Form validation
+    document.getElementById('filterForm').addEventListener('submit', function(e) {
+        const dateRange = document.getElementById('dateRange').value;
+        
+        if (dateRange === 'custom') {
+            const startDate = new Date(document.getElementById('customStartDate').value);
+            const endDate = new Date(document.getElementById('customEndDate').value);
+            
+            if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+                e.preventDefault();
+                alert('Please select both start and end dates');
+                return;
+            }
+            
+            if (startDate > endDate) {
+                e.preventDefault();
+                alert('Start date cannot be later than end date');
+                return;
+            }
+        }
+    });
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let trendsChart = null;
+    const ctx = document.getElementById('recordingTrendsChart').getContext('2d');
+
+    // Initialize chart with empty data
+    function initChart() {
+        if (trendsChart) {
+            trendsChart.destroy();
+        }
+
+        const options = {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                intersect: false,
+                mode: 'index'
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                },
+                tooltip: {
+                    enabled: true,
+                    mode: 'index',
+                    intersect: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        maxRotation: 45,
+                        minRotation: 45
+                    }
+                }
+            }
+        };
+
+        trendsChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Records Created',
+                    data: [],
+                    borderColor: 'rgb(75, 192, 192)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 4,
+                    pointHoverRadius: 6
+                }]
+            },
+            options: options
+        });
+
+        return trendsChart;
+    }
+
+    // Fetch data and update chart
+    async function updateChart(range, startDate = null, endDate = null) {
+        try {
+            const params = new URLSearchParams({
+                range: range,
+                start_date: startDate || '',
+                end_date: endDate || ''
+            });
+
+            const response = await fetch(`/api/recording-trends/?${params}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            
+            console.log("Received data:", data);  // Debug log
+
+            if (!trendsChart) {
+                trendsChart = initChart();
+            }
+
+            trendsChart.data.labels = data.labels;
+            trendsChart.data.datasets[0].data = data.values;
+            trendsChart.update();
+
+        } catch (error) {
+            console.error('Error fetching trend data:', error);
+        }
+
+    }
+
+    // Initialize chart
+    initChart();
+
+    // Handle range button clicks
+    document.querySelectorAll('[data-range]').forEach(button => {
+        button.addEventListener('click', function() {
+            const range = this.dataset.range;
+            
+            // Update active button state
+            document.querySelectorAll('[data-range]').forEach(btn => {
+                btn.classList.remove('active', 'btn-primary');
+                btn.classList.add('btn-outline-primary');
+            });
+            this.classList.remove('btn-outline-primary');
+            this.classList.add('active', 'btn-primary');
+
+            // Toggle custom date inputs
+            const customDateContainer = document.getElementById('customDateContainer');
+            customDateContainer.style.display = range === 'custom' ? 'flex' : 'none';
+
+            // Update chart if not custom range
+            if (range !== 'custom') {
+                updateChart(range);
+            }
+        });
+    });
+
+    // Handle custom range application
+    document.getElementById('applyCustomRange').addEventListener('click', function() {
+        const startDate = document.getElementById('trendStartDate').value;
+        const endDate = document.getElementById('trendEndDate').value;
+
+        if (!startDate || !endDate) {
+            alert('Please select both start and end dates');
+            return;
+        }
+
+        if (new Date(startDate) > new Date(endDate)) {
+            alert('Start date must be before end date');
+            return;
+        }
+
+        updateChart('custom', startDate, endDate);
+    });
+
+    // Initial load with default range (month)
+    document.querySelector('[data-range="month"]').click();
+});
+</script>
+{% endblock %}
+

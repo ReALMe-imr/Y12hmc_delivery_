@@ -1,0 +1,27 @@
+{% load static %}
+
+<!DOCTYPE html> 
+<html>
+<head>
+    <title>{% block title %}Django Social Network{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> 
+</head>
+<body></body>
+    <div id="header">
+        <span class="logo">Django Social Network</span>
+        <div id="userbar">
+            {% if user.is_authenticated %}
+                Hello, {{ user.username }}. Not you? <a href="{% url 'account:logout' %}">Log out</a>
+            {% else %}
+                <a href="{% url 'account:login' %}">Log in</a>
+                {% comment %} <a href="{% url 'account:register' %}">Register</a> {% endcomment %}
+            {% endif %}
+            <ul class = "menu">
+                <li {% if section == "dashboard" %} class="selected" {% endif %}>
+                    <a href="{% url 'account:dashboard' %}"> My Dashboard</a>   
+        </div>
+    </div>
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f5f7fb;
+            font-family: 'Arial', sans-serif;
+        }
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1f2937;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .dashboard-header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+        .dashboard-header .btn {
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        .dashboard-header .btn:hover {
+            background-color: #2563eb;
+        }
+        .user-info-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+        .user-info-card h5 {
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        .user-info-card p {
+            margin: 5px 0;
+        }
+        .stats-section {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .stats-card {
+            flex: 1;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .stats-card h5 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            color: #111827;
+        }
+        .stats-card .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #3b82f6;
+            transition: all 0.5s ease;
+        }
+        .button-group {
+            display: flex;
+            gap: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <div class="dashboard-header">
+            <h1>Welcome, {{ user.first_name }} {{ user.last_name }}</h1>
+            <div class="button-group">
+                <a href="{% url 'core:record_list' %}" class="btn"><i class="fas fa-home"></i> Return Home</a>
+                <a href="{% url 'account:password_change' %}" class="btn"><i class="fas fa-lock"></i> Change Password</a>
+                <a href="{% url 'account:logout' %}" class="btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+
+        <!-- User Info Card -->
+        <div class="user-info-card">
+            <h5>User Information</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <p><i class="bi bi-person me-2"></i>First Name: {{ user.first_name }}</p>
+                    <p><i class="bi bi-person me-2"></i>Last Name: {{ user.last_name }}</p>
+                    <p><i class="bi bi-envelope me-2"></i>Email: {{ user.email }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><i class="bi bi-calendar me-2"></i>Joined: {{ user.date_joined|date:"F j, Y" }}</p>
+                    <p><i class="bi bi-clock me-2"></i>Last Login: {{ user.last_login|date:"F j, Y, g:i A" }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <div class="stats-card">
+                <h5>Daily Records</h5>
+                <p class="stat-value" data-target="{{ daily_count }}">{{ daily_count }}</p>
+            </div>
+            <div class="stats-card">
+                <h5>Weekly Records</h5>
+                <p class="stat-value" data-target="{{ weekly_count }}">{{ weekly_count }}</p>
+            </div>
+            <div class="stats-card">
+                <h5>Monthly Records</h5>
+                <p class="stat-value" data-target="{{ monthly_count }}">{{ monthly_count }}</p>
+            </div>
+            <div class="stats-card">
+                <h5>Total Records</h5>
+                <p class="stat-value" data-target="{{ total_count }}">{{ total_count }}</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const counters = document.querySelectorAll('.stat-value');
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+
+                    const increment = target / 200; // Adjust the speed of the animation
+
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + increment);
+                        setTimeout(updateCount, 1);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCount();
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+

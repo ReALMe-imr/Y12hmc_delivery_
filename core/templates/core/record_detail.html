@@ -1,0 +1,263 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Record Details{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4 px-5">
+    <h1 class="mb-4">Record Details</h1>
+
+    <div class="row g-4 mb-4">
+        <!-- Personal Information -->
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm transition-card">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="card-title mb-0"><i class="fas fa-user text-info me-2"></i>Personal Information</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">MRN</span>
+                            <span>{{ record.mrn }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">Mother's Name</span>
+                            <span>{{ record.name }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">Age</span>
+                            <span>{{ record.age }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">Address</span>
+                            <span>{{ record.kebele }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Labour and Maternal Outcomes -->
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm transition-card">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="card-title mb-0"><i class="fas fa-baby text-info me-2"></i>Labour and Maternal Outcomes</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">Delivery Date (Ethiopian)</span>
+                            <span>{{ record.ethiopian_date }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">Delivery Date & Time</span>
+                            <span>{{ record.delivery_date }} : {{ record.delivery_time }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">Mode of Delivery</span>
+                            <span>{{ record.get_mode_of_delivery_display }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">Maternal Status</span>
+                            <span>{{ record.get_maternal_status_display }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">Obstetric Complications</span>
+                            <span>{{ record.get_obstetric_complications_display }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    <!-- Second Row -->
+    <div class="row g-4 mb-4">
+        <!-- Newborn Birth Outcome and Care -->
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm transition-card">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="card-title mb-0"><i class="fas fa-baby-carriage text-info me-2"></i>Newborn Birth Outcome and Care</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">APGAR Score (1/5)</span>
+                            <span>{{ record.APGAR_score_1_5 }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">Sex</span>
+                            <span>{{ record.get_sex_display }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">Weight (grams)</span>
+                            <span>{{ record.weight_in_grams }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">Alive</span>
+                            <span>{{ record.alive|yesno:"Yes,No" }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">Stillbirth</span>
+                            <span>{{ record.get_stillbirth_display }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">Live Birth Died Before Arrival</span>
+                            <span>{{ record.live_birth_died_before_arrival|yesno:"Yes,No" }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">Live Birth Died After Arrival</span>
+                            <span>{{ record.live_birth_died_after_arrival_or_delivery|yesno:"Yes,No" }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">MRN Newborn</span>
+                            <span>{{ record.mrn_newborn }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">Vitamin K</span>
+                            <span>{{ record.vitamin_k|yesno:"Yes,No" }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">TTC Eye Ointment</span>
+                            <span>{{ record.ttc_eye_ointment|yesno:"Yes,No" }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">BCG Given</span>
+                            <span>{{ record.bcg_given|yesno:"Yes,No" }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">OPV Given</span>
+                            <span>{{ record.opv_given|yesno:"Yes,No" }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Maternal HIV Care and Follow-up -->
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm transition-card">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="card-title mb-0"><i class="fas fa-virus text-info me-2"></i>Maternal HIV Care and Follow-up</h5>
+                </div>
+                <div class="card-body h-100">
+                    <ul class="list-group list-group-flush flex-grow-1">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">HIV Test Accepted</span>
+                            <span>{{ record.hiv_test_accepted|yesno:"Yes,No" }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">HIV Re-testing Accepted</span>
+                            <span>{{ record.hiv_retesting_accepted|yesno:"Yes,No" }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">HIV Test Result</span>
+                            <span>{{ record.get_hiv_test_result_display }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">Known HIV Positive (Transferred from ART)</span>
+                            <span>{{ record.known_hiv_positive|yesno:"Yes,No" }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">Target Population Category (Code)</span>
+                            <span>{{ record.target_population_category }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">HIV Positive Delivery Link to PMTCT</span>
+                            <span>{{ record.get_hiv_positive_delivery_link_display }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">Counseled on Feeding Options</span>
+                            <span>{{ record.counseled_on_feeding_options|yesno:"Yes,No" }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">Mother's ART Regimen (Code)</span>
+                            <span>{{ record.mothers_art_regimen }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-muted">Newborn NVP (for 6 wks/12wks)</span>
+                            <span>{{ record.newborn_nvp }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    <!-- Third Row -->
+    <div class="row mt-4">
+        <!-- Additional Information -->
+        <div class="col-12">
+            <div class="card shadow-sm transition-card">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="card-title mb-0"><i class="fas fa-info-circle text-info me-2"></i>Additional Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fw-bold text-muted">Managed By</span>
+                                <span>{{ record.managed_by }}</span>
+                            </div>
+                            <hr class="my-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fw-bold text-muted">Remark</span>
+                                <span>{{ record.remark }}</span>
+                            </div>
+                            <hr class="my-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fw-bold text-muted">Data entry Date</span>
+                                <span>{{ record.created_at }}</span>
+                            </div>
+                            <hr class="my-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fw-bold text-muted">Last Updated At</span>
+                                <span>{{ record.updated_at }}</span>
+                            </div>
+                            <hr class="my-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fw-bold text-muted">Created By</span>
+                                <span>{{ record.created_by.username }} </span>
+                            </div>
+                            <hr class="my-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fw-bold text-muted">Edited By</span>
+                                <span>{{ record.edited_by.username }} </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="{% url 'core:record_update' record.pk %}" class="btn btn-warning me-2">
+            <i class="fas fa-edit"></i> Edit
+        </a>
+        <a href="{% url 'core:record_list' %}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to List
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .list-group-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: none;
+        padding: 0.75rem 0;
+    }
+    .card {
+        border: none;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+    .card-header {
+        border-bottom: none;
+    }
+    .fw-bold.text-muted {
+        font-size: 0.9rem;
+    }
+</style>
+{% endblock %}
+

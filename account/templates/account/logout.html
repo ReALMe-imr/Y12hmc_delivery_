@@ -1,0 +1,8 @@
+{% block title %} logged out {% endblock %}
+{% block content %}
+    <h2>Logged out</h2>
+    <p>
+        You have been logged out!
+        You can <a href="{% url 'account:login' %}">log back in</a>
+    </p>
+{% endblock %}

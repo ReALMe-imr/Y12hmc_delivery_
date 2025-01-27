@@ -1,0 +1,626 @@
+Internal Server Error: /account/login/
+"GET /account/login/?next=/ HTTP/1.1" 500 21
+Internal Server Error: /account/login/
+"GET /account/login/?next=/ HTTP/1.1" 500 21
+Internal Server Error: /6/
+"GET /6/ HTTP/1.1" 500 8257
+Internal Server Error: /create/
+"GET /create/ HTTP/1.1" 500 8224
+Internal Server Error: /create/
+"GET /create/ HTTP/1.1" 500 8224
+Internal Server Error: /create/
+"GET /create/ HTTP/1.1" 500 8224
+Internal Server Error: /create/
+"GET /create/ HTTP/1.1" 500 8224
+Internal Server Error: /create/
+"GET /create/ HTTP/1.1" 500 8224
+Internal Server Error: /create/
+"GET /create/ HTTP/1.1" 500 8224
+Internal Server Error: /create/
+"POST /create/ HTTP/1.1" 500 8411
+Internal Server Error: /create/
+"POST /create/ HTTP/1.1" 500 8357
+Internal Server Error: /create/
+"POST /create/ HTTP/1.1" 500 8357
+Internal Server Error: /create/
+"POST /create/ HTTP/1.1" 500 8410
+Internal Server Error: /create/
+"POST /create/ HTTP/1.1" 500 8540
+Internal Server Error: /49/
+"GET /49/ HTTP/1.1" 500 8364
+Internal Server Error: /49/
+"GET /49/ HTTP/1.1" 500 8364
+Internal Server Error: /86/
+"GET /86/ HTTP/1.1" 500 8364
+Internal Server Error: /93/
+"GET /93/ HTTP/1.1" 500 8356
+Internal Server Error: /93/
+"GET /93/ HTTP/1.1" 500 8356
+Internal Server Error: /93/
+"GET /93/ HTTP/1.1" 500 8356
+Internal Server Error: /
+"GET / HTTP/1.1" 500 8356
+Internal Server Error: /
+"GET / HTTP/1.1" 500 8356
+Internal Server Error: /
+"GET / HTTP/1.1" 500 8356
+Internal Server Error: /
+"GET / HTTP/1.1" 500 8356
+Internal Server Error: /
+"GET / HTTP/1.1" 500 8356
+Internal Server Error: /
+"GET / HTTP/1.1" 500 8356
+Internal Server Error: /
+"GET / HTTP/1.1" 500 8356
+Internal Server Error: /
+"GET / HTTP/1.1" 500 8356
+Internal Server Error: /
+"GET / HTTP/1.1" 500 8356
+Internal Server Error: /restore/
+"POST /restore/ HTTP/1.1" 500 8494
+Internal Server Error: /admin/productivity/
+"GET /admin/productivity/ HTTP/1.1" 500 8206
+Internal Server Error: /admin/productivity
+"GET /admin/productivity HTTP/1.1" 500 8206
+Internal Server Error: /admin/productivity
+"GET /admin/productivity HTTP/1.1" 500 8206
+Internal Server Error: /admin/productivity
+"GET /admin/productivity HTTP/1.1" 500 8206
+Internal Server Error: /admin/productivity
+"GET /admin/productivity HTTP/1.1" 500 8206
+Internal Server Error: /admin/productivity
+"GET /admin/productivity HTTP/1.1" 500 8206
+Internal Server Error: /admin/productivity
+"GET /admin/productivity HTTP/1.1" 500 8206
+Internal Server Error: /admin/productivity
+"GET /admin/productivity HTTP/1.1" 500 8206
+Internal Server Error: /admin/productivity/
+"GET /admin/productivity/ HTTP/1.1" 500 8206
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=monthly HTTP/1.1" 500 9178
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=monthly HTTP/1.1" 500 9178
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 9178
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 8510
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 8510
+Internal Server Error: /productivity/
+"GET /productivity/?time_period=weekly&analysis_range=30 HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?time_period=weekly&analysis_range=30 HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?time_period=weekly&analysis_range=30 HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?time_period=weekly&analysis_range=30 HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?time_period=weekly&analysis_range=30 HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 9178
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?time_period=daily&analysis_range=7 HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?time_period=daily&analysis_range=7 HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?time_period=daily&analysis_range=7 HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?time_period=daily&analysis_range=7 HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?time_period=daily&analysis_range=7 HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?time_period=daily&analysis_range=7 HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?time_period=daily&analysis_range=7 HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?time_period=daily&analysis_range=7 HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?time_period=daily&analysis_range=7 HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?time_period=daily&analysis_range=7 HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?time_period=daily&analysis_range=7 HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?time_period=daily&analysis_range=7 HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?time_period=daily&analysis_range=7 HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?time_period=daily&analysis_range=7 HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=daily HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=daily HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=daily HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=daily HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=daily HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=daily HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=daily HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=daily HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=daily HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=daily HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=daily HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=daily HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=daily HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=daily HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=daily HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=daily HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=daily HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=daily HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=daily HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=daily HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=daily HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=daily HTTP/1.1" 500 8510
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=daily HTTP/1.1" 500 9178
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=daily HTTP/1.1" 500 9178
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=daily HTTP/1.1" 500 8510
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=daily HTTP/1.1" 500 8568
+Internal Server Error: /productivity/
+"GET /productivity/?time_period=total&analytics_start_date=&analytics_end_date= HTTP/1.1" 500 8496
+Internal Server Error: /productivity/
+"GET /productivity/?time_period=total&analytics_start_date=&analytics_end_date= HTTP/1.1" 500 8496
+Internal Server Error: /productivity/
+"GET /productivity/ HTTP/1.1" 500 9184
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_dates=&group_by=monthly HTTP/1.1" 500 8554
+Internal Server Error: /productivity/
+"GET /productivity/?time_period=monthly&analytics_start_date=2025-01-01&analytics_end_date=2025-01-04 HTTP/1.1" 500 8523
+Internal Server Error: /productivity/
+"GET /productivity/?time_period=monthly&analytics_start_date=2025-01-01&analytics_end_date=2025-01-04 HTTP/1.1" 500 8523
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=day&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 8545
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=custom&start_date=2025-01-22&end_date=2025-01-23 HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=custom&start_date=2025-01-22&end_date=2025-01-23 HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=custom&start_date=2025-01-22&end_date=2025-01-23 HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=custom&start_date=2025-01-22&end_date=2025-01-23 HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=custom&start_date=2025-01-22&end_date=2025-01-23 HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=custom&start_date=2025-01-22&end_date=2025-01-23 HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=day&start_date=&end_date= HTTP/1.1" 500 9184
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=day&start_date=&end_date= HTTP/1.1" 500 9184
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=day&start_date=&end_date= HTTP/1.1" 500 9184
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=day&start_date=&end_date= HTTP/1.1" 500 9184
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=day&start_date=&end_date= HTTP/1.1" 500 9184
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=day&start_date=&end_date= HTTP/1.1" 500 9184
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=day&start_date=&end_date= HTTP/1.1" 500 9184
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 9183
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=week&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=month&start_date=&end_date= HTTP/1.1" 500 8545
+Internal Server Error: /create/
+"GET /create/ HTTP/1.1" 500 8610
+Internal Server Error: /create/
+"GET /create/ HTTP/1.1" 500 8608
+Internal Server Error: /create/
+"GET /create/ HTTP/1.1" 500 8638
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=total&start_date=&end_date= HTTP/1.1" 500 8524

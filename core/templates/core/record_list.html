@@ -1,0 +1,105 @@
+{% extends 'core/base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Delivery Records{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4 mt-4">
+    <h1 class="mb-4">Delivery Records</h1>
+
+    <div class="row mb-4">
+        <div class="col-12">
+            <form method="get" class="form-inline">
+                <div class="row align-items-end">
+                    <div class="col-md-2 me-4">
+                        <label for="{{ form.min_date.id_for_label }}" class="form-label">From Date</label>
+                        {{ form.min_date }}
+                    </div>
+                    <div class="col-md-2 me-4">
+                        <label for="{{ form.max_date.id_for_label }}" class="form-label">To Date</label>
+                        {{ form.max_date }}
+                    </div>
+                    <div class="col-md-4 me-4">
+                        <div class="input-group">
+                            <input type="text" name="{{ form.search_query.name }}" class="form-control rounded-start" placeholder="Search here">
+                            <button type="submit" class="btn btn-primary rounded-end">
+                                <i class="bi bi-search"></i>
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="{% url 'core:record_create' %}" class="btn btn-success w-100">
+                            <i class="bi bi-plus-circle"></i> Add New Record
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th style="width: 8%">S.N</th>
+                <th style="width: 15%">MRN</th>
+                <th style="width: 25%">Name</th>
+                <th style="width: 20%">Delivery Date</th>
+                <th style="width: 20%">Managed By</th>
+                <th style="width: 12%">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in page_obj %}
+            <tr>
+                <td>{{ record.serial_number }}</td>
+                <td class="text-truncate" style="max-width: 150px;">{{ record.mrn }}</td>
+                <td class="text-truncate" style="max-width: 300px;">{{ record.name }}</td>
+                <td>{{ record.ethiopian_date }}</td>
+                <td class="text-truncate" style="max-width: 250px;">{{ record.managed_by }}</td>
+                <td>
+                    <a href="{% url 'core:record_detail' record.pk %}" class="btn btn-sm btn-info">View</a>
+                    <a href="{% url 'core:record_update' record.pk %}" class="btn btn-sm btn-warning">Edit</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No records found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="row">
+        <div class="col-md-12 text-end">
+            <p>Total Records: {{ page_obj.paginator.count }}</p>
+        </div>
+    </div>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1">&laquo; First</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            </li>
+            {% endif %}
+
+            <li class="page-item disabled">
+                <span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            </li>
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endblock %}

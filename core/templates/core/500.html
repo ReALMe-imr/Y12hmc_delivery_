@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="error-container text-center my-5">
+    <h1 class="text-danger mb-4">500 - Server Error</h1>
+    <div class="error-message mb-4">
+        <p>We sincerely apologize for the inconvenience. An unexpected error has occurred on our server.</p>
+        <p>To help us resolve this issue quickly, please contact our support team and include the error message below:</p>
+    </div>
+    {% if error_message %}
+    <div class="alert alert-secondary p-3 mx-auto" style="max-width: 600px;">
+        <code>{{ error_message }}</code>
+    </div>
+    {% endif %}
+    <div class="mt-4">
+        <p>You can reach our support team at:</p>
+        <p><a href="mailto:imaletschat@gmail.com">Email Us Here</a></p>
+        <p><a href="tel:+251912024786">Call Here</a></p>
+    </div>
+</div>
+{% endblock %}

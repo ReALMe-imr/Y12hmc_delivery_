@@ -1,0 +1,43 @@
+.card {
+    background-color: #ffffff; /* Changed to white for better contrast */
+    border: 1px solid #dee2e6; /* Bootstrap default border color */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #0d6efd; /* Bootstrap primary blue */
+    color: #ffffff;
+    font-weight: 500;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.form-label {
+    color: #212529; /* Bootstrap default text color */
+    font-weight: 500;
+}
+
+.btn-primary {
+    background-color: #0d6efd; /* Bootstrap primary blue */
+    border-color: #0d6efd;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7; /* Slightly darker blue on hover */
+    border-color: #0a58ca;
+}
+
+.alert-danger {
+    background-color: #f8d7da; /* Bootstrap danger background */
+    color: #842029; /* Bootstrap danger text */
+    border: 1px solid #f5c2c7;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+
+

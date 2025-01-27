@@ -1,0 +1,572 @@
+{% extends 'core/base.html' %}
+
+{% load widget_tweaks %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'core/record_form.css' %}">
+<link rel="stylesheet" href="{% static 'css/redmond.calendars.picker.css' %}">
+<link rel="stylesheet" href="{% static 'js/jquery.calendars.picker.css' %}">
+
+{% endblock %}
+
+{% block title %}{% if form.instance.pk %}Edit Record{% else %}Add New Record{% endif %}{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4 mt-4">
+    <h1 class="mb-4">{% if form.instance.pk %}Edit Record{% else %}Add New Record{% endif %}</h1>
+    
+
+    {% if form.errors %}
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            {% for field, errors in form.errors.items %}
+                {% if field != 'created_at' and field != 'updated_at' %}
+                    {% if field == '__all__' %}
+                        {% for error in errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% else %}
+                        <li><strong>{{ field|title }}:</strong> {{ errors|join:", " }}</li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <form method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
+        
+        <!-- Personal Information -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-user"></i> Personal Information
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="{{ form.mrn.id_for_label }}" class="form-label">
+                                MRN
+                            </label>
+                            {{ form.mrn }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="{{ form.name.id_for_label }}" class="form-label">
+                                Mother's Name <span class="text-danger">*</span>
+                            </label>
+                            {{ form.name }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="{{ form.age.id_for_label }}" class="form-label">
+                                Age <span class="text-danger">*</span>
+                            </label>
+                            {{ form.age }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="{{ form.kebele.id_for_label }}" class="form-label">
+                                Kebele 
+                            </label>
+                            {{ form.kebele }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Labor and Maternal Outcomes -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-baby"></i> Labor and Maternal Outcomes
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="popupDatepicker" class="form-label">
+                                Delivery Date <span class="text-danger">*</span>
+                            </label>
+                            <div class="input-group">
+                                <input type="text" id="popupDatepicker" class="form-control" autocomplete="off" value="{{ form.instance.ethiopian_date }}">
+                            </div>
+                            <input type="hidden" name="delivery_date" id="gregorianDate" value="{{ form.instance.delivery_date|date:'Y-m-d' }}">
+                            <input type="hidden" name="ethiopian_date" value="{{ form.instance.ethiopian_date }}">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="{{ form.delivery_time.id_for_label }}" class="form-label">
+                                Delivery Time <span class="text-danger">*</span>
+                            </label>
+                            {{ form.delivery_time }}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="{{ form.mode_of_delivery.id_for_label }}" class="form-label">
+                                Mode of Delivery <span class="text-danger">*</span>
+                            </label>
+                            {{ form.mode_of_delivery }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="{{ form.maternal_status.id_for_label }}" class="form-label">
+                                Maternal Status <span class="text-danger">*</span>
+                            </label>
+                            {{ form.maternal_status }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="{{ form.obstetric_complications.id_for_label }}" class="form-label">
+                                Obstetric Complications 
+                            </label>
+                            {{ form.obstetric_complications }}
+                            {% if form.obstetric_complications.errors %}
+                                <div class="invalid-feedback d-block">{{ form.obstetric_complications.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+
+        <!-- Newborn Birth Outcome -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-baby-carriage"></i> Newborn Birth Outcome And Care
+                </h5>
+            </div>
+            <div class="card-body">
+                <!-- First Row - Basic Information -->
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="{{ form.APGAR_score_1_5.id_for_label }}" class="form-label">
+                                APGAR Score (1/5) <span class="text-danger">*</span>
+                            </label>
+                            {{ form.APGAR_score_1_5 }}
+                            {% if form.APGAR_score_1_5.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.APGAR_score_1_5.errors %}
+                                        <span class="d-block">{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="{{ form.sex.id_for_label }}" class="form-label">
+                                Sex <span class="text-danger">*</span>
+                            </label>
+                            {{ form.sex }}
+                            {% if form.sex.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.sex.errors %}
+                                        <span class="d-block">{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="{{ form.weight_in_grams.id_for_label }}" class="form-label">
+                                Weight (in grams) <span class="text-danger">*</span>
+                            </label>
+                            {{ form.weight_in_grams }}
+                            {% if form.weight_in_grams.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.weight_in_grams.errors %}
+                                        <span class="d-block">{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="{{ form.alive.id_for_label }}" class="form-label">
+                                Alive <span class="text-danger">*</span>
+                            </label>
+                            <select name="{{ form.alive.name }}" id="{{ form.alive.id_for_label }}" class="form-select" required>
+                                <option value="">---------</option>
+                                <option value="1" {% if form.instance.alive %}selected{% endif %}>Yes</option>
+                                <option value="0" {% if form.instance.alive == False %}selected{% endif %}>No</option>
+                            </select>
+                            {% if form.alive.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.alive.errors %}
+                                        <span class="d-block">{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <!-- Second Row - Status Information -->
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="{{ form.stillbirth.id_for_label }}" class="form-label">
+                                Stillbirth (1 = Fresh, 2 = Macerated)
+                            </label>
+                            {{ form.stillbirth }}
+                            {% if form.stillbirth.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.stillbirth.errors %}
+                                        <span class="d-block">{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="{{ form.live_birth_died_before_arrival.id_for_label }}" class="form-label">
+                                Live Birth, Died Before Arrival
+                            </label>
+                            {{ form.live_birth_died_before_arrival }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="{{ form.live_birth_died_after_arrival_or_delivery.id_for_label }}" class="form-label">
+                                Live Birth, Died After Arrival
+                            </label>
+                            {{ form.live_birth_died_after_arrival_or_delivery }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="{{ form.mrn_newborn.id_for_label }}" class="form-label">
+                                MRN (Newborn)
+                            </label>
+                            {{ form.mrn_newborn }}
+                        </div>
+                    </div>
+                </div>
+                <!-- Third Row - Care Information -->
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="{{ form.vitamin_k.id_for_label }}" class="form-label">
+                                Vitamin K
+                            </label>
+                            {{ form.vitamin_k }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="{{ form.ttc_eye_ointment.id_for_label }}" class="form-label">
+                                TTC Eye Ointment
+                            </label>
+                            {{ form.ttc_eye_ointment }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="{{ form.bcg_given.id_for_label }}" class="form-label">
+                                BCG Given
+                            </label>
+                            {{ form.bcg_given }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="{{ form.opv_given.id_for_label }}" class="form-label">
+                                OPV 0 Given
+                            </label>
+                            {{ form.opv_given }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Maternal HIV Care and Follow-up -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-virus"></i> Maternal HIV Care and Follow-up
+                </h5>
+            </div>
+            <div class="card-body">
+                <!--first raw - 4 columns -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="{{ form.hiv_test_accepted.id_for_label }}" class="form-label">
+                                HIV Test Accepted 
+                            </label>
+                            <select name="{{ form.hiv_test_accepted.name }}" id="{{ form.hiv_test_accepted.id_for_label }}" class="form-select">
+                                <option value="">---------</option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                            {% if form.hiv_test_accepted.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.hiv_test_accepted.errors %}
+                                        <span class="d-block">{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="{{ form.hiv_retesting_accepted.id_for_label }}" class="form-label">
+                                HIV Re-testing Accepted 
+                            </label>
+                            {{ form.hiv_retesting_accepted }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="{{ form.hiv_test_result.id_for_label }}" class="form-label">
+                                HIV Test Result <span class="text-danger">*</span>
+                            </label>
+                            {{ form.hiv_test_result }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="{{ form.known_hiv_positive.id_for_label }}" class="form-label">
+                                Known HIV Positive from ART
+                            </label>
+                            {{ form.known_hiv_positive }}
+                        </div>
+                    </div>
+                </div>
+                <!-- Second Row - 5 columns -->
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="{{ form.target_population_category.id_for_label }}" class="form-label">
+                                Target Population Category 
+                            </label>
+                            {{ form.target_population_category }}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="{{ form.hiv_positive_delivery_link.id_for_label }}" class="form-label">
+                                Link To PMTCT 
+                            </label>
+                            {{ form.hiv_positive_delivery_link }}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="{{ form.counseled_on_feeding_options.id_for_label }}" class="form-label">
+                                Feeding Options Counseling
+                            </label>
+                            {{ form.counseled_on_feeding_options }}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="{{ form.mothers_art_regimen.id_for_label }}" class="form-label">
+                                Mother's ART Regimen 
+                            </label>
+                            {{ form.mothers_art_regimen }}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="{{ form.newborn_nvp.id_for_label }}" class="form-label">
+                                New Born NVP
+                            </label>
+                            {{ form.newborn_nvp }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Additional Information -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-info-circle"></i> Additional Information
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="{{ form.managed_by.id_for_label }}" class="form-label">
+                                Managed By <span class="text-danger">*</span>
+                            </label>
+                            {{ form.managed_by }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="{{ form.remark.id_for_label }}" class="form-label">
+                                Remark
+                            </label>
+                            {{ form.remark }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add this temporarily to debug -->
+        <div style="display: none;">
+            Raw delivery_date value: {{ form.delivery_date.value|default:"No value" }}
+        </div>
+
+        <div class="row mt-4 mb-5">
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Save Record
+                </button>
+                <a href="{% url 'core:record_list' %}" class="btn btn-secondary">
+                    <i class="fas fa-times"></i> Cancel
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+<script src="{% static 'js/jquery.plugin.js' %}"></script>
+<script src="{% static 'js/jquery.calendars.js' %}"></script>
+<script src="{% static 'js/jquery.calendars.plus.js' %}"></script>
+<script src="{% static 'js/jquery.calendars.picker.js' %}"></script>
+<script src="{% static 'js/jquery.calendars.ethiopian.js' %}"></script> 
+<!-- <script type="text/javascript" src="{% static 'js/jquery.calendars.picker-am.js' %}"></script> -->
+<script src="{% static 'js/jquery.calendars.ethiopian-am.js' %}"></script> 
+
+
+<!-- <link rel="stylesheet" href="css/redmond.calendars.picker.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/jquery.plugin.js"></script>
+
+<script src="js/jquery.calendars.js"></script>
+<script src="js/jquery.calendars.plus.js"></script>
+<script src="js/jquery.calendars.picker.js"></script>
+
+<script src="js/jquery.calendars.ethiopian.js"></script>
+<script type="text/javascript" src="js/jquery.calendars.picker-am.js"></script>
+<script src="js/jquery.calendars.ethiopian-am.js"></script> -->
+
+<script>
+    $(document).ready(function() {
+        // Initialize the Ethiopian calendar
+        var calendar = $.calendars.instance('ethiopian', 'am');
+        var $input = $('#popupDatepicker');
+        
+        // Initialize the date picker
+        $input.calendarsPicker({
+            calendar: calendar,
+            dateFormat: 'dd/mm/yyyy',
+            showAnim: '',
+            showTrigger: '#calendarTrigger',
+            onSelect: function(dates) {
+                if (dates && dates.length > 0) {
+                    var ethiopianDate = dates[0];
+                    var jd = ethiopianDate.toJD();
+                    var gregorianDate = $.calendars.instance('gregorian').fromJD(jd);
+                    var formattedDate = gregorianDate.formatDate('yyyy-mm-dd');
+                    
+                    $('#gregorianDate').val(formattedDate);
+                    $('input[name="delivery_date"]').val(formattedDate);
+                    $('input[name="ethiopian_date"]').val(ethiopianDate.formatDate('dd/mm/yyyy'));
+                }
+            }
+        });
+
+        // Set initial values if they exist
+        var existingGregorianDate = $('#gregorianDate').val();
+        var existingEthiopianDate = $('input[name="ethiopian_date"]').val();
+        
+        if (existingGregorianDate && !existingEthiopianDate) {
+            // Convert Gregorian to Ethiopian if we only have Gregorian
+            var parts = existingGregorianDate.split('-');
+            if (parts.length === 3) {
+                var gregorianDate = $.calendars.instance('gregorian').newDate(
+                    parseInt(parts[0]), 
+                    parseInt(parts[1]), 
+                    parseInt(parts[2])
+                );
+                var jd = gregorianDate.toJD();
+                var ethiopianDate = calendar.fromJD(jd);
+                $input.val(ethiopianDate.formatDate('dd/mm/yyyy'));
+                $('input[name="ethiopian_date"]').val(ethiopianDate.formatDate('dd/mm/yyyy'));
+            }
+        } else if (existingEthiopianDate) {
+            // If we have Ethiopian date, just display it
+            $input.val(existingEthiopianDate);
+        }
+
+        // Ensure time input is required
+        $('input[name="delivery_time"]').prop('required', true);
+    
+        // Add form submission handler
+        $('form').on('submit', function(e) {
+            // Log all form values before submission
+            console.log('Form submitted');
+            console.log('Delivery date value:', $('input[name="delivery_date"]').val());
+            console.log('Gregorian date value:', $('#gregorianDate').val());
+            console.log('Delivery time value:', $('input[name="delivery_time"]').val());
+            console.log('Ethiopian date value:', $('input[name="ethiopian_date"]').val());
+
+            var dateValue = $('input[name="delivery_date"]').val();
+            var timeValue = $('input[name="delivery_time"]').val();
+
+            if (!dateValue) {
+                e.preventDefault();
+                alert('Please select a delivery date');
+                return false;
+            }
+
+            if (!timeValue) {
+                e.preventDefault();
+                alert('Please enter a delivery time');
+                return false;
+            }
+        });
+    });
+</script>
+
+<script>
+    // Form validation script
+    (function () {
+        'use strict'
+        var forms = document.querySelectorAll('.needs-validation')
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
+{% endblock %}
