@@ -66,67 +66,8 @@
 <div class="container-fluid px-4 py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2><i class="fas fa-chart-line"></i> Productivity Dashboard</h2>
-        <div class="btn-group">
-            <button class="btn btn-outline-primary" id="exportExcel">
-                <i class="fas fa-file-excel"></i> Export to Excel
-            </button>
-        </div>
     </div>
 
-    <!-- Filters Section -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <form method="get" class="row g-3" id="filterForm">
-                        <div class="col-md-3">
-                            <label class="form-label">Date Range</label>
-                            <select class="form-select" name="date_range" id="dateRange">
-                                <option value="today" {% if date_range == 'today' %}selected{% endif %}>Today</option>
-                                <option value="yesterday" {% if date_range == 'yesterday' %}selected{% endif %}>Yesterday</option>
-                                <option value="this_week" {% if date_range == 'this_week' %}selected{% endif %}>This Week</option>
-                                <option value="last_week" {% if date_range == 'last_week' %}selected{% endif %}>Last Week</option>
-                                <option value="this_month" {% if date_range == 'this_month' %}selected{% endif %}>This Month</option>
-                                <option value="last_month" {% if date_range == 'last_month' %}selected{% endif %}>Last Month</option>
-                                <option value="custom" {% if date_range == 'custom' %}selected{% endif %}>Custom Range</option>
-                            </select>
-                        </div>
-
-                        <!-- Custom Date Range Fields -->
-                        <div class="col-md-4" id="customDateFields" style="display: none;">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label class="form-label">Start Date</label>
-                                    <input type="date" class="form-control" name="custom_start_date" id="customStartDate" 
-                                           value="{{ custom_start_date|date:'Y-m-d' }}">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">End Date</label>
-                                    <input type="date" class="form-control" name="custom_end_date" id="customEndDate" 
-                                           value="{{ custom_end_date|date:'Y-m-d' }}">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label class="form-label">Group By</label>
-                            <select class="form-select" name="group_by">
-                                <option value="daily" {% if group_by == 'daily' %}selected{% endif %}>Daily</option>
-                                <option value="weekly" {% if group_by == 'weekly' %}selected{% endif %}>Weekly</option>
-                                <option value="monthly" {% if group_by == 'monthly' %}selected{% endif %}>Monthly</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-2 align-self-end">
-                            <button type="submit" class="btn btn-primary w-100">
-                                <i class="fas fa-filter me-2"></i>Apply Filters
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Move this section just above Detailed Productivity Report -->
     <div class="row mb-4">
@@ -171,6 +112,55 @@
         </div>
     </div>
 
+
+
+    <!-- Filters Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <form method="get" class="row g-3" id="filterForm">
+                        <div class="col-md-3">
+                            <label class="form-label">Date Range</label>
+                            <select class="form-select" name="date_range" id="dateRange">
+                                <option value="today" {% if date_range == 'today' %}selected{% endif %}>Today</option>
+                                <option value="yesterday" {% if date_range == 'yesterday' %}selected{% endif %}>Yesterday</option>
+                                <option value="this_week" {% if date_range == 'this_week' %}selected{% endif %}>This Week</option>
+                                <option value="last_week" {% if date_range == 'last_week' %}selected{% endif %}>Last Week</option>
+                                <option value="this_month" {% if date_range == 'this_month' %}selected{% endif %}>This Month</option>
+                                <option value="last_month" {% if date_range == 'last_month' %}selected{% endif %}>Last Month</option>
+                                <option value="custom" {% if date_range == 'custom' %}selected{% endif %}>Custom Range</option>
+                            </select>
+                        </div>
+
+                        <!-- Custom Date Range Fields -->
+                        <div class="col-md-4" id="customDateFields" style="display: none;">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="form-label">Start Date</label>
+                                    <input type="date" class="form-control" name="custom_start_date" id="customStartDate" 
+                                           value="{{ custom_start_date|date:'Y-m-d' }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">End Date</label>
+                                    <input type="date" class="form-control" name="custom_end_date" id="customEndDate" 
+                                           value="{{ custom_end_date|date:'Y-m-d' }}">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-2 align-self-end">
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-filter me-2"></i>Apply Filters
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Summary Cards -->
     <div class="row mb-4">
         <!-- Total Records Card -->
@@ -192,12 +182,15 @@
                             <span class="fw-bold">{{ previous_total_records }}</span>
                         </div>
                         <div class="d-flex align-items-center">
-                            {% if records_growth >= 0 %}
-                            <i class="fas fa-arrow-up text-success me-1"></i>
-                            <span class="text-success">+{{ records_growth }}%</span>
+                            {% if records_growth > 0 %}
+                                <i class="fas fa-arrow-up text-success me-1"></i>
+                                <span class="text-success">+{{ records_growth|floatformat:1 }}%</span>
+                            {% elif records_growth < 0 %}
+                                <i class="fas fa-arrow-down text-danger me-1"></i>
+                                <span class="text-danger">{{ records_growth|floatformat:1 }}%</span>
                             {% else %}
-                            <i class="fas fa-arrow-down text-danger me-1"></i>
-                            <span class="text-danger">{{ records_growth }}%</span>
+                                <i class="fas fa-equals text-secondary me-1"></i>
+                                <span class="text-secondary">0%</span>
                             {% endif %}
                             <span class="text-muted ms-2">from last period</span>
                         </div>

@@ -623,4 +623,30 @@ Internal Server Error: /create/
 Internal Server Error: /create/
 "GET /create/ HTTP/1.1" 500 8638
 Internal Server Error: /api/recording-trends/
-"GET /api/recording-trends/?range=total&start_date=&end_date= HTTP/1.1" 500 8524
+"GET /api/recording-trends/?range=total&start_date=&end_date= HTTP/1.1" 500 9184
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=total&start_date=&end_date= HTTP/1.1" 500 9184
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=total&start_date=&end_date= HTTP/1.1" 500 9184
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=total&start_date=&end_date= HTTP/1.1" 500 9184
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=total&start_date=&end_date= HTTP/1.1" 500 9184
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=total&start_date=&end_date= HTTP/1.1" 500 9184
+Internal Server Error: /api/recording-trends/
+"GET /api/recording-trends/?range=total&start_date=&end_date= HTTP/1.1" 500 9184
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=today&custom_start_date=2025-01-01&custom_end_date=2025-01-27 HTTP/1.1" 500 8526
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=last_week&custom_start_date=&custom_end_date= HTTP/1.1" 500 9178
+Internal Server Error: /productivity/
+"GET /productivity/?time_period=weekly&analytics_start_date=&analytics_end_date= HTTP/1.1" 500 9178
+Internal Server Error: /productivity/
+"GET /productivity/?time_period=weekly&analytics_start_date=&analytics_end_date= HTTP/1.1" 500 8526
+Internal Server Error: /productivity/
+"GET /productivity/?time_period=weekly&analytics_start_date=&analytics_end_date= HTTP/1.1" 500 8533
+Internal Server Error: /productivity/
+"GET /productivity/?time_period=weekly&analytics_start_date=&analytics_end_date= HTTP/1.1" 500 8533
+Internal Server Error: /productivity/
+"GET /productivity/?date_range=this_week&custom_start_date=2025-01-01&custom_end_date=2025-01-27 HTTP/1.1" 500 8526

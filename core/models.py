@@ -8,7 +8,7 @@ class DeliveryRecord(models.Model):
     serial_number = models.AutoField(primary_key=True)
     mrn = models.CharField(max_length=6, blank=True, null=True, db_index=True)
     name = models.CharField(max_length=255, db_index=True)
-    age = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(999)])
+    age = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(70)])
     kebele = models.CharField(max_length=255, blank=True, null=True)
     ethiopian_date = models.CharField(max_length=20, null=True, blank=True)
     delivery_date = models.DateField(null=False, blank=False)

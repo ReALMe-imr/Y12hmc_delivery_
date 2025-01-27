@@ -82,7 +82,14 @@ class DeliveryRecordForm(forms.ModelForm):
             'alive': {
                 'required': 'Please indicate if the newborn is alive',
             },
-        
+            'age': {
+                'required': 'Please enter the patient\'s age',
+                'min_value': 'Age cannot be less than 1',
+                'max_value': 'Age cannot be more than 70',
+            },
+            'delivery_date': {
+                'required': 'Please enter the delivery date',
+            },
         }
 
     def __init__(self, *args, **kwargs):
@@ -95,26 +102,20 @@ class DeliveryRecordForm(forms.ModelForm):
             if isinstance(field, forms.ChoiceField):
                 field.widget.attrs['class'] += ' custom-select'
 
-        # Set initial value for delivery_date if it exists
-        # if self.instance.pk and self.instance.delivery_date:
-        #     # Convert to local time for display
-        #     local_dt = timezone.localtime(self.instance.delivery_date)
-        #     self.initial['delivery_date'] = local_dt.strftime('%Y-%m-%dT%H:%M')
 
-    # def clean_delivery_date(self):
-    #     date = self.cleaned_data.get('delivery_date')
-    #     if date:
-    #         # If the date is naive (has no timezone info), make it timezone-aware
-    #         if timezone.is_naive(date):
-    #             # Make the datetime timezone-aware using the current timezone
-    #             date = timezone.make_aware(date, timezone.get_current_timezone())
-    #     return date
 
     def clean_weight_in_grams(self):
         weight = self.cleaned_data.get('weight_in_grams')
         if weight and weight > 9999:
             raise forms.ValidationError("Weight cannot exceed 9999 grams.")
         return weight
+
+    def clean_name(self):
+        name = self.cleaned_data.get('name')
+        if name:
+            # Capitalize the first letter of each word
+            name = name.title()
+        return name
 
     def clean(self):
         cleaned_data = super().clean()

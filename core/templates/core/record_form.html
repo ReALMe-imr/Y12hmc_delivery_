@@ -98,7 +98,17 @@
                                 Delivery Date <span class="text-danger">*</span>
                             </label>
                             <div class="input-group">
-                                <input type="text" id="popupDatepicker" class="form-control" autocomplete="off" value="{{ form.instance.ethiopian_date }}">
+                                <input type="text" 
+                                       id="popupDatepicker" 
+                                       class="form-control {% if form.delivery_date.errors %}is-invalid{% endif %}" 
+                                       autocomplete="off" 
+                                       required
+                                       value="{{ form.instance.ethiopian_date }}">
+                                {% if form.delivery_date.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ form.delivery_date.errors|join:", " }}
+                                    </div>
+                                {% endif %}
                             </div>
                             <input type="hidden" name="delivery_date" id="gregorianDate" value="{{ form.instance.delivery_date|date:'Y-m-d' }}">
                             <input type="hidden" name="ethiopian_date" value="{{ form.instance.ethiopian_date }}">
@@ -537,17 +547,17 @@
             var dateValue = $('input[name="delivery_date"]').val();
             var timeValue = $('input[name="delivery_time"]').val();
 
-            if (!dateValue) {
-                e.preventDefault();
-                alert('Please select a delivery date');
-                return false;
-            }
+            // if (!dateValue) {
+            //     e.preventDefault();
+            //     alert('Please select a valide delivery date');
+            //     return false;
+            // }
 
-            if (!timeValue) {
-                e.preventDefault();
-                alert('Please enter a delivery time');
-                return false;
-            }
+            // if (!timeValue) {
+            //     e.preventDefault();
+            //     alert('Please enter a delivery time');
+            //     return false;
+            // }
         });
     });
 </script>

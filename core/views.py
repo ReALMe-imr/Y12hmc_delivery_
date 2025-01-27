@@ -83,23 +83,25 @@ def record_list(request):
 @csrf_exempt
 def record_create(request):
     if request.method == 'POST':
-        # Print the POST data for debugging
-        print("POST data:", request.POST)
-        
         form = DeliveryRecordForm(request.POST)
         if form.is_valid():
             record = form.save(commit=False)
             record.created_by = request.user
             
-            # Print the record data before saving
-            print("Record delivery_date:", record.delivery_date)
-            print("Record delivery_time:", record.delivery_time)
+            # Check if delivery_date is provided
+            delivery_date = request.POST.get('delivery_date')
+            if not delivery_date:
+                form.add_error('delivery_date', 'Please select a valid delivery date')
+                messages.error(request, 'Please select a valid delivery date')
+                return render(request, 'core/record_form.html', {'form': form})
             
             record.save()
             messages.success(request, 'Record successfully added.')
             return redirect('core:record_list')
         else:
-            print("Form errors:", form.errors)
+            # If there are form errors, check specifically for delivery_date
+            if not request.POST.get('delivery_date'):
+                form.add_error('delivery_date', 'Please select a valid delivery date')
             messages.error(request, 'Please correct the errors below.')
     else:
         form = DeliveryRecordForm()
@@ -326,6 +328,70 @@ def backup_records(request):
 
 @user_passes_test(lambda u: u.is_superuser)
 def admin_productivity(request):
+    """
+    Generate a productivity report for users based on delivery records.
+
+    This function analyzes user activity over specified time periods and generates
+    statistics related to the number of records created by each user. The analysis
+    includes daily, weekly, monthly, and total counts of records, as well as peak
+    activity periods and average time taken to enter records.
+
+    Parameters:
+    - request: The HTTP request object containing query parameters for filtering
+      the report, including:
+        - time_period: The time period for the report (e.g., 'total', 'custom').
+        - analytics_start_date: Start date for custom analysis.
+        - analytics_end_date: End date for custom analysis.
+        - date_range: Predefined date ranges for filtering (e.g., 'today', 'this_month').
+        - group_by: The granularity of the report (e.g., 'daily', 'weekly', 'monthly').
+        - analysis_range: Number of days to analyze for average time calculations.
+
+    The function performs the following steps:
+    1. Retrieves the current date and determines the date range based on the
+       provided parameters.
+    2. Queries the DeliveryRecord model to gather records created by active users
+       within the specified date range.
+    3. Calculates various statistics, including:
+       - Daily, weekly, monthly, and total record counts for each user.
+       - Last active time for each user.
+       - Average time taken to enter records.
+       - Peak activity periods based on record creation timestamps.
+    4. Compiles the results into a context dictionary for rendering in the
+       'admin_productivity.html' template.
+
+    Returns:
+    - Renders the 'admin_productivity.html' template with the context containing
+      the analysis results.
+
+    Report Sections:
+    1. **Total Records**: 
+       - Displays the total number of records created during the selected period.
+       - Compares with the previous period to show growth or decline.
+       - Calculated using the `total_records` variable.
+
+    2. **Active Users**: 
+       - Shows the number of users who have created records during the selected period.
+       - Displays the active rate as a percentage of total users.
+       - Calculated using the `active_users` variable.
+
+    3. **Average Daily Records**: 
+       - Displays the average number of records created per day during the selected period.
+       - Calculated using the `avg_daily_records` variable.
+
+    4. **Records This Month**: 
+       - Shows the total number of records created in the current month.
+       - Compares with the daily target to show progress.
+       - Calculated using the `records_this_month` variable and the `monthly_target` variable.
+
+    5. **Peak Activity**: 
+       - Identifies the period with the highest number of records created.
+       - Displays the top contributors during that peak period.
+       - Calculated using the `peak_activity` variable.
+
+    6. **User Data**: 
+       - Provides detailed statistics for each user, including daily, weekly, monthly, and total record counts.
+       - Last active time is also displayed for each user.
+    """
     # Get time period from request
     time_period = request.GET.get('time_period', 'total')
     
@@ -595,10 +661,111 @@ def admin_productivity(request):
     monthly_target = avg_daily_records * days_in_current_month if avg_daily_records else 0
     monthly_target_per_day = round(monthly_target / days_in_current_month) if monthly_target > 0 else 0
 
+
+   # Initialize variables
+    today = timezone.now().date()
+    start_date = None
+    end_date = None
+    prev_start_date = None
+    prev_end_date = None
+
+
+    # Set date ranges based on selection
+    if date_range == 'today':
+        start_date = end_date = today
+        prev_start_date = prev_end_date = today - timedelta(days=1)
+    
+    elif date_range == 'yesterday':
+        start_date = end_date = today - timedelta(days=1)
+        prev_start_date = prev_end_date = today - timedelta(days=2)
+    
+    elif date_range == 'this_week':
+        start_date = today - timedelta(days=today.weekday())
+        end_date = today
+        prev_start_date = start_date - timedelta(days=7)
+        prev_end_date = start_date - timedelta(days=1)
+    
+    elif date_range == 'last_week':
+        start_date = today - timedelta(days=today.weekday() + 7)
+        end_date = start_date + timedelta(days=6)
+        prev_start_date = start_date - timedelta(days=7)
+        prev_end_date = start_date - timedelta(days=1)
+    
+    elif date_range == 'this_month':
+        start_date = today.replace(day=1)
+        end_date = today
+        if start_date.month == 1:
+            prev_start_date = start_date.replace(year=start_date.year-1, month=12, day=1)
+        else:
+            prev_start_date = start_date.replace(month=start_date.month-1, day=1)
+        prev_end_date = start_date - timedelta(days=1)
+    
+    elif date_range == 'last_month':
+        start_date = (today.replace(day=1) - timedelta(days=1)).replace(day=1)
+        end_date = today.replace(day=1) - timedelta(days=1)
+        if start_date.month == 1:
+            prev_start_date = start_date.replace(year=start_date.year-1, month=12, day=1)
+        else:
+            prev_start_date = start_date.replace(month=start_date.month-1, day=1)
+        prev_end_date = start_date - timedelta(days=1)
+    
+    elif date_range == 'custom' and custom_start_date and custom_end_date:
+        try:
+            start_date = datetime.strptime(custom_start_date, '%Y-%m-%d').date()
+            end_date = datetime.strptime(custom_end_date, '%Y-%m-%d').date()
+            date_diff = (end_date - start_date).days
+            prev_start_date = start_date - timedelta(days=date_diff + 1)
+            prev_end_date = start_date - timedelta(days=1)
+        except ValueError:
+            # Default to last 30 days if dates are invalid
+            start_date = today - timedelta(days=30)
+            end_date = today
+            prev_start_date = start_date - timedelta(days=30)
+            prev_end_date = start_date - timedelta(days=1)
+    else:
+        # Default to last 30 days
+        start_date = today - timedelta(days=30)
+        end_date = today
+        prev_start_date = start_date - timedelta(days=30)
+        prev_end_date = start_date - timedelta(days=1)
+
+
+# Calculate current period records
+    total_records = DeliveryRecord.objects.filter(
+        created_at__date__range=[start_date, end_date]
+    ).count()
+
+
+    
+    # Calculate previous period records
+    previous_total_records = DeliveryRecord.objects.filter(
+        created_at__date__range=[prev_start_date, prev_end_date]
+    ).count()
+
+    # Debug print statements
+    print(f"Total Records: {total_records}")
+    print(f"Previous Total Records: {previous_total_records}")
+
+    # Calculate growth percentage
+    if previous_total_records > 0:
+        records_growth = ((total_records - previous_total_records) / previous_total_records) * 100
+    else:
+        records_growth = 100 if total_records > 0 else 0
+
+    # Debug print
+    print(f"Growth Percentage: {records_growth}")
+
+    # Ensure records_growth is rounded to 1 decimal place
+    records_growth = round(records_growth, 1)
+
+
+
     # Convert to JSON-safe format and add to context
     context.update({
         'user_data': user_data,
         'total_records': total_records,
+        'previous_total_records': previous_total_records,
+        'records_growth': records_growth,
         'active_users': active_users,
         'avg_daily_records': avg_daily_records,
         'records_this_month': DeliveryRecord.objects.filter(
@@ -612,13 +779,16 @@ def admin_productivity(request):
         'peak_users': peak_users,
         'time_period': time_period,
         'analysis_range': analysis_range,
-        'previous_total_records': previous_period_records,
+        # 'previous_total_records': previous_period_records,
         'records_growth': round(records_growth, 1),
+        'previous_total_records': previous_total_records,
+        # 'records_growth': records_growth,
         'total_users': total_users,
         'highest_daily_records': highest_daily_records,
         'lowest_daily_records': lowest_daily_records,
         'monthly_target': monthly_target,
         'monthly_target_per_day': monthly_target_per_day,
+        
     })
     
     return render(request, 'core/admin_productivity.html', context)
@@ -727,7 +897,7 @@ def export_productivity(request):
 #                             try:
 #                                 # Split the full name into first and last name
 #                                 first_name, last_name = value.split(' ', 1)
-#                                 user = User.objects.get(first_name=first_name, last_name=last_name)
+#                                 user = User.objects.get(first_name=first_name, last_name=lastname)
 #                                 record_data[key] = user
 #                             except User.DoesNotExist:
 #                                 messages.error(request, f'User not found: {value}')
@@ -941,9 +1111,36 @@ def recording_trends(request):
         values = []
         while current <= end_datetime:
             labels.append(current.strftime(date_format))
-            record = next((r for r in records if r['date'] == current), None)
+            record = next((r for r in records if r['date'].strftime(date_format) == current.strftime(date_format)), None)
             values.append(record['count'] if record else 0)
             current += timedelta(hours=1)
+
+
+    # # Set date range based on selected range
+    # if range_type == 'day':
+    #     # Last 24 hours
+    #     start_datetime = now - timedelta(hours=24)
+    #     end_datetime = now
+    #     date_format = '%H:00'  # Show only hour
+        
+    #     # Generate all hours first
+    #     labels = []
+    #     values = []
+    #     current = start_datetime
+        
+    #     # Create a dictionary to store records by hour
+    #     records_dict = {r['date']: r['count'] for r in DeliveryRecord.objects.filter(
+    #         created_at__range=[start_datetime, end_datetime]
+    #     ).annotate(
+    #         date=TruncHour('created_at')
+    #     ).values('date').annotate(
+    #         count=Count('serial_number')
+    #     )}
+        
+    #     while current <= end_datetime:
+    #         labels.append(current.strftime(date_format))
+    #         values.append(records_dict.get(current, 0))
+    #         current += timedelta(hours=1)
 
     elif range_type == 'week':
         # Last 7 days
