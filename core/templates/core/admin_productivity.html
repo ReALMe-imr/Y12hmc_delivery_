@@ -4,7 +4,9 @@
 {% block title %}Admin Productivity Dashboard{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"> -->
+<link rel="stylesheet" href="{% static 'css/daterangepicker.css' %}">
+
 <style>
     .stats-card {
         transition: all 0.3s ease;
@@ -583,7 +585,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+<script src="{% static 'js/chart.js' %}"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     let trendsChart = null;

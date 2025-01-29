@@ -4,4 +4,3 @@ git add .
 git commit -m "first commit"
 git branch -M master
 git remote add origin https://github.com/ReALMe-imr/Y12hmc_delivery_.git
-git push -u origin master

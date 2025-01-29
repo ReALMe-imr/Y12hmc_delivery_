@@ -7,6 +7,7 @@ from .models import DeliveryRecord
 class DeliveryRecordAdmin(admin.ModelAdmin):
     list_display = ('serial_number', 'mrn', 'name', 'delivery_date', 'managed_by')
     list_display_links = ('mrn',)  # Optional: make 'mrn' a link to the record
+    list_filter = ('managed_by',)  # Use valid fields for filtering
 
 # Register the DeliveryRecord model with the new admin class
 admin.site.register(DeliveryRecord, DeliveryRecordAdmin)
